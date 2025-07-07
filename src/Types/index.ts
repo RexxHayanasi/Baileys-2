@@ -4,26 +4,40 @@ export * from './Chat'
 export * from './Contact'
 export * from './State'
 export * from './Message'
+export * from './Newsletter'
 export * from './Socket'
 export * from './Events'
 export * from './Product'
 export * from './Call'
 export * from './Signal'
-export * from './Newsletter'
 
+// 🔧 Export eksplisit tambahan untuk menghindari error build
+export type { MediaType } from './Message'
+export type { ILogger } from './Logger'
+export type {
+	NewsletterFetchedUpdate,
+	NewsletterReaction,
+	NewsletterReactionMode
+} from './Newsletter'
+
+// Import untuk gabungan konfigurasi user-facing
 import { AuthenticationState } from './Auth'
 import { SocketConfig } from './Socket'
 
 export type UserFacingSocketConfig = Partial<SocketConfig> & { auth: AuthenticationState }
 
+// Tipe untuk informasi browser
 export type BrowsersMap = {
 	ubuntu(browser: string): [string, string, string]
 	macOS(browser: string): [string, string, string]
 	baileys(browser: string): [string, string, string]
 	windows(browser: string): [string, string, string]
+	iOS?(browser: string): [string, string, string] // opsional
+	linux?(browser: string): [string, string, string] // opsional
 	appropriate(browser: string): [string, string, string]
 }
 
+// Alasan disconnect
 export enum DisconnectReason {
 	connectionClosed = 428,
 	connectionLost = 408,
@@ -37,12 +51,14 @@ export enum DisconnectReason {
 	unavailableService = 503
 }
 
+// Respons saat inisialisasi WA
 export type WAInitResponse = {
 	ref: string
 	ttl: number
 	status: 200
 }
 
+// Konfigurasi jam kerja bisnis
 export type WABusinessHoursConfig = {
 	day_of_week: string
 	mode: string
@@ -50,6 +66,7 @@ export type WABusinessHoursConfig = {
 	close_time?: number
 }
 
+// Profil bisnis WhatsApp
 export type WABusinessProfile = {
 	description: string
 	email: string | undefined
@@ -64,4 +81,8 @@ export type WABusinessProfile = {
 	address?: string
 }
 
-export type CurveKeyPair = { private: Uint8Array; public: Uint8Array }
+// Tipe untuk CurveKeyPair
+export type CurveKeyPair = {
+	private: Uint8Array
+	public: Uint8Array
+}
