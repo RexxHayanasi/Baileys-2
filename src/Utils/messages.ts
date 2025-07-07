@@ -381,10 +381,8 @@ export const prepareWAMessageMedia = async (
 	if (cacheableKey) {
 		logger?.debug({ cacheableKey }, 'set cache')
 		options.mediaCache!.set(cacheableKey, WAProto.Message.encode(obj).finish())
+    return obj
 	}
-
-	return obj
-}
 
 export const prepareDisappearingMessageSettingContent = (ephemeralExpiration?: number) => {
 	ephemeralExpiration = ephemeralExpiration || 0
