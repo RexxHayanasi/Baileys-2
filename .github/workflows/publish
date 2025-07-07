@@ -36,7 +36,7 @@ jobs:
 
     - name: Run tests (optional)
       run: npm test
-      continue-on-error: true
+      continue-on-error: false
 
     - name: Build TypeScript (optional)
       run: npm run build || npm run build:tsc || echo 'No build script'
