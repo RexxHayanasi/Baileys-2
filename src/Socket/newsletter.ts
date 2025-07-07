@@ -1,6 +1,5 @@
 import { NewsletterFetchedUpdate, NewsletterMetadata, NewsletterReaction, NewsletterReactionMode, NewsletterViewRole, QueryIds, SocketConfig, WAMediaUpload, XWAPaths } from '../Types'
 import { decryptMessageNode, generateMessageID, generateProfilePicture } from '../Utils'
-import { generateProfilePicture } from '../Utils/messages-media'
 import { BinaryNode, getAllBinaryNodeChildren, getBinaryNodeChild, getBinaryNodeChildren, S_WHATSAPP_NET } from '../WABinary'
 import { makeGroupsSocket } from './groups'
 import { executeWMexQuery as genericExecuteWMexQuery } from './mex'
