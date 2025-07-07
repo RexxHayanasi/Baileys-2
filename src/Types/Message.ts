@@ -9,6 +9,7 @@ import { CacheStore } from './Socket'
 
 // export the WAMessage Prototypes
 export { proto as WAProto }
+
 export type WAMessage = proto.IWebMessageInfo & { key: WAMessageKey }
 export type WAMessageContent = proto.IMessage
 export type WAContactMessage = proto.Message.IContactMessage
@@ -37,11 +38,9 @@ export const WAMessageStatus = proto.WebMessageInfo.Status
 export type WAMediaPayloadURL = { url: URL | string }
 export type WAMediaPayloadStream = { stream: Readable }
 export type WAMediaUpload = Buffer | WAMediaPayloadStream | WAMediaPayloadURL
-/** Set of message types that are supported by the library */
 export type MessageType = keyof proto.Message
 
 export type DownloadableMessage = { mediaKey?: Uint8Array | null, directPath?: string | null, url?: string | null }
-
 export type MessageReceiptType = 'read' | 'read-self' | 'hist_sync' | 'peer_msg' | 'sender' | 'inactive' | 'played' | undefined
 
 export type MediaConnInfo = {
@@ -60,6 +59,11 @@ export interface WAUrlInfo {
     highQualityThumbnail?: proto.Message.IImageMessage
     originalThumbnailUrl?: string
 }
+
+// === Tambahan untuk migrasi V3  ===
+export type MediaType = keyof typeof MEDIA_HKDF_KEY_MAPPING
+export type ILogger = import('../Utils/logger').ILogger
+// ===========================
 
 export interface Carousel {   
     image?: WAMediaUpload
