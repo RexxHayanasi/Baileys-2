@@ -13,7 +13,7 @@ export * from './Signal'
 
 // 🔧 Export eksplisit tambahan untuk menghindari error build
 export type { MediaType } from './Message'
-export type { ILogger } from './Logger'
+import { logger } from '../Utils/logger'
 export type {
 	NewsletterFetchedUpdate,
 	NewsletterReaction,
