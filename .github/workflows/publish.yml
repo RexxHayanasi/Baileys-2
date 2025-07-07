@@ -1,0 +1,82 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Cache node modules
+      uses: actions/cache@v4
+      id: cache
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        registry-url: 'https://registry.npmjs.org/'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint (optional)
+      run: npm run lint
+      continue-on-error: true # Jika belum ada lint script, tidak gagal
+
+    - name: Run tests (optional)
+      run: npm test
+      continue-on-error: true # Jika belum ada test script, tidak gagal
+
+    - name: Build TypeScript (optional)
+      run: npm run build || npm run build:tsc || echo 'No build script'
+      continue-on-error: true
+
+    - name: Show package info
+      run: |
+        echo "Package: $(node -p "require('./package.json').name")"
+        echo "Version: $(node -p "require('./package.json').version")"
+
+    - name: Verify package name
+      run: |
+        EXPECTED="@rexxhayanasi/elaina-bail"
+        ACTUAL=$(node -p "require('./package.json').name")
+        if [ "$ACTUAL" != "$EXPECTED" ]; then
+          echo "❌ ERROR: Nama package harus '$EXPECTED', tapi ditemukan '$ACTUAL'"
+          exit 1
+        fi
+
+    - name: Verify version bump
+      run: |
+        VERSION=$(node -p "require('./package.json').version")
+        npm view @rexxhayanasi/elaina-bail@$VERSION > /dev/null 2>&1 && {
+          echo "❌ ERROR: Versi $VERSION sudah ada di NPM Registry. Mohon naikkan versi di package.json."
+          exit 1
+        } || echo "✅ Versi $VERSION belum ada, siap dipublish."
+
+    - name: Publish to NPM
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: Upload build artifacts (optional)
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: |
+          dist/
+          lib/
+          build/
+          *.tgz
+        if-no-files-found: ignore
