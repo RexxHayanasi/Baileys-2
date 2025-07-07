@@ -1,6 +1,6 @@
 {
   "name": "@rexxhayanasi/elaina-bail",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A WebSockets library for interacting with WhatsApp Web recode by RexxHayanasi",
   "keywords": [
     "whatsapp",
