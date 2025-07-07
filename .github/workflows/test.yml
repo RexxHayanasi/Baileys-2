@@ -1,4 +1,4 @@
-name: Run Tests
+name: Test Library
 
 on:
   push:
@@ -9,30 +9,28 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x]
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (no lock file)
+        run: npm install
 
-      - name: Run Build (optional)
+      - name: Build (jika ada)
         run: |
           if [ -f tsconfig.json ]; then
-            npm run build || echo "No build step"
+            npm run build
           fi
 
       - name: Run Tests
         run: npm test
-        
