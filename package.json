@@ -1,17 +1,17 @@
 {
-  "name": "baileys",
-  "version": "6.7.18",
-  "description": "A WebSockets library for interacting with WhatsApp Web",
+  "name": "Elaina-bail",
+  "version": "1.1.0",
+  "description": "A WebSockets library for interacting with WhatsApp Web recode by RexxHayanasi",
   "keywords": [
     "whatsapp",
     "automation"
   ],
-  "homepage": "https://github.com/WhiskeySockets/Baileys/",
+  "homepage": "https://github.com/RexxHayanasi/ElainaBaileys/",
   "repository": {
-    "url": "git@github.com:WhiskeySockets/Baileys.git"
+    "url": "git@github.com:RexxHayanasi/ElainaBaileys.git"
   },
   "license": "MIT",
-  "author": "Rajeh Taher",
+  "author": "RexxHayanasi",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
